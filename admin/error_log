@@ -1,0 +1,10 @@
+[13-Jan-2026 03:07:35 UTC] PHP Warning:  require_once(/home/rentorpro/tools.rentorpro.com/app/admin/config.php): Failed to open stream: No such file or directory in /home/rentorpro/tools.rentorpro.com/app/admin/create_admin.php on line 2
+[13-Jan-2026 03:07:35 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/rentorpro/tools.rentorpro.com/app/admin/config.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/rentorpro/tools.rentorpro.com/app/admin/create_admin.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rentorpro/tools.rentorpro.com/app/admin/create_admin.php on line 2
+[13-Jan-2026 03:40:48 UTC] PHP Warning:  require_once(/home/rentorpro/tools.rentorpro.com/app/admin/config.php): Failed to open stream: No such file or directory in /home/rentorpro/tools.rentorpro.com/app/admin/create_admin.php on line 2
+[13-Jan-2026 03:40:48 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/rentorpro/tools.rentorpro.com/app/admin/config.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/rentorpro/tools.rentorpro.com/app/admin/create_admin.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rentorpro/tools.rentorpro.com/app/admin/create_admin.php on line 2
