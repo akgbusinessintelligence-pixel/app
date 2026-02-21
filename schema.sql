@@ -1,0 +1,70 @@
+-- Rental Application Database Schema
+
+CREATE TABLE IF NOT EXISTS `admin_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `applications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `unit` varchar(100) NOT NULL,
+  `move_in` date NOT NULL,
+  `salutation` varchar(10) DEFAULT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `middle_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address1` varchar(255) NOT NULL,
+  `address2` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `zip` varchar(20) DEFAULT NULL,
+  `res_from` varchar(7) DEFAULT NULL,
+  `res_to` varchar(7) DEFAULT NULL,
+  `rent` decimal(10,2) DEFAULT NULL,
+  `landlord` varchar(255) DEFAULT NULL,
+  `landlord_phone` varchar(50) DEFAULT NULL,
+  `landlord_email` varchar(255) DEFAULT NULL,
+  `reason` text DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `ssn_hash` varchar(255) DEFAULT NULL,
+  `gov_id` varchar(100) DEFAULT NULL,
+  `id_state` varchar(100) DEFAULT NULL,
+  `employer` varchar(255) DEFAULT NULL,
+  `salary` decimal(10,2) DEFAULT NULL,
+  `additional_income` decimal(10,2) DEFAULT NULL,
+  `income_source` varchar(255) DEFAULT NULL,
+  `evicted` enum('Yes','No') DEFAULT 'No',
+  `criminal` enum('Yes','No') DEFAULT 'No',
+  `co_enabled` tinyint(1) DEFAULT 0,
+  `co_first_name` varchar(100) DEFAULT NULL,
+  `co_middle_name` varchar(100) DEFAULT NULL,
+  `co_last_name` varchar(100) DEFAULT NULL,
+  `co_phone` varchar(50) DEFAULT NULL,
+  `co_email` varchar(255) DEFAULT NULL,
+  `co_dob` date DEFAULT NULL,
+  `co_ssn_hash` varchar(255) DEFAULT NULL,
+  `co_gov_id` varchar(100) DEFAULT NULL,
+  `pdf_path` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `application_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `application_id` int(11) NOT NULL,
+  `original_name` varchar(255) NOT NULL,
+  `stored_name` varchar(255) NOT NULL,
+  `mime_type` varchar(100) DEFAULT NULL,
+  `file_size` int(11) DEFAULT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `application_id` (`application_id`),
+  CONSTRAINT `application_files_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
