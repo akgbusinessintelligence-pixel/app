@@ -1,0 +1,7 @@
+# Disable rewrites for this subdirectory to prevent root CMS interference
+RewriteEngine On
+RewriteBase /app/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /app/index.php [L]
