@@ -1,4 +1,6 @@
 <?php
+$content = <<<'PHP'
+<?php
 declare(strict_types=1);
 
 ini_set('display_errors', '1');
@@ -314,3 +316,13 @@ $pdo->prepare("UPDATE applications SET pdf_path=? WHERE id=?")
 </div>
 </body>
 </html>
+PHP;
+
+$result = file_put_contents(__DIR__ . '/submit.php', $content);
+if ($result !== false) {
+    echo "SUCCESS: submit.php written ($result bytes)";
+}
+else {
+    echo "FAILED: Could not write submit.php";
+}
+?>
