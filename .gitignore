@@ -1,0 +1,8 @@
+database.sqlite
+pdfs/*.pdf
+uploads/*
+!uploads/.gitkeep
+error_log
+dompdf_test.pdf
+check_db.php
+init_sqlite.php

@@ -13,20 +13,29 @@ $db_user = "rentorpro_appuser";
 $db_pass = "vl%abRRz4!^Gd#Zm";
 
 try {
-  $pdo = new PDO(
-    "mysql:host={$db_host};dbname={$db_name};charset=utf8mb4",
-    $db_user,
-    $db_pass,
-  [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false,
-  ]
-    );
+  // Use SQLite if database.sqlite exists (local development)
+  if (file_exists(__DIR__ . '/database.sqlite')) {
+    $pdo = new PDO("sqlite:" . __DIR__ . '/database.sqlite', null, null, [
+      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+  }
+  else {
+    // MySQL for Production (cPanel)
+    $pdo = new PDO(
+      "mysql:host={$db_host};dbname={$db_name};charset=utf8mb4",
+      $db_user,
+      $db_pass,
+    [
+      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      PDO::ATTR_EMULATE_PREPARES => false,
+    ]
+      );
+  }
 }
 catch (PDOException $e) {
-  // On a live server, you might want to log this instead of exiting
-  // but for initial testing, we let the exception bubble up or exit.
   die("Database connection failed: " . $e->getMessage());
 }
 
