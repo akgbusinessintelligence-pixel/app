@@ -1,3 +1,5 @@
+<?php
+$html = <<<'HTMLDOC'
 <?php require_once __DIR__ . '/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -433,3 +435,14 @@ function updateFiles() {
 </script>
 </body>
 </html>
+HTMLDOC;
+
+$result = file_put_contents(__DIR__ . '/index.php', $html);
+if ($result !== false) {
+    echo "SUCCESS: index.php written (" . $result . " bytes)";
+}
+else {
+    echo "FAILED: Could not write index.php";
+}
+?>
+
