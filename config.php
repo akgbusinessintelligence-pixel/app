@@ -79,3 +79,56 @@ function clean_str(?string $v): ?string
   $v = trim($v);
   return $v === '' ? null : $v;
 }
+
+function ensure_properties_table(PDO $pdo): void
+{
+  static $initialized = false;
+  if ($initialized) {
+    return;
+  }
+
+  $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+  if ($driver === 'sqlite') {
+    $pdo->exec("CREATE TABLE IF NOT EXISTS properties (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      address TEXT NOT NULL,
+      rent_amount REAL NOT NULL,
+      bedrooms INTEGER NOT NULL,
+      bathrooms REAL NOT NULL,
+      status TEXT NOT NULL DEFAULT 'Available',
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )");
+  }
+  else {
+    $pdo->exec("CREATE TABLE IF NOT EXISTS properties (
+      id INT(11) NOT NULL AUTO_INCREMENT,
+      name VARCHAR(150) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      rent_amount DECIMAL(10,2) NOT NULL,
+      bedrooms TINYINT UNSIGNED NOT NULL,
+      bathrooms DECIMAL(3,1) NOT NULL,
+      status ENUM('Available','Rented') NOT NULL DEFAULT 'Available',
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+  }
+
+  $initialized = true;
+}
+
+function get_properties(PDO $pdo, ?string $status = null): array
+{
+  ensure_properties_table($pdo);
+  $sql = "SELECT id, name, address, rent_amount, bedrooms, bathrooms, status FROM properties";
+  $params = [];
+  if ($status !== null) {
+    $sql .= " WHERE status = ?";
+    $params[] = $status;
+  }
+  $sql .= " ORDER BY id DESC";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute($params);
+  return $stmt->fetchAll();
+}
