@@ -1,4 +1,7 @@
-<?php require_once __DIR__ . '/config.php'; ?>
+<?php
+require_once __DIR__ . '/config.php';
+$availableProperties = get_properties($pdo, 'Available');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,9 +40,11 @@
                         <label class="form-label">Rental Unit *</label>
                         <select name="unit" id="unit_select" class="form-select" required>
                             <option value="">Select a vacant unit...</option>
-                            <option value="123 Main St, Apt 4">123 Main St, Apt 4</option>
-                            <option value="456 Oak Ave">456 Oak Ave</option>
-                            <option value="789 Pine Rd, Unit B">789 Pine Rd, Unit B</option>
+                            <?php foreach ($availableProperties as $property): ?>
+                                <option value="<?= htmlspecialchars($property['name'] . ' - ' . $property['address']) ?>">
+                                    <?= htmlspecialchars($property['name']) ?> — <?= htmlspecialchars($property['address']) ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="col-md-12">

@@ -87,6 +87,7 @@ function statusBadge($s) {
     </div>
     <nav class="mt-2">
         <a href="index.php" class="active"><span class="icon">📋</span> Applications</a>
+        <a href="properties.php"><span class="icon">🏘️</span> Properties</a>
         <a href="index.php?status=pending"><span class="icon">⏳</span> Pending</a>
         <a href="index.php?status=review"><span class="icon">🔍</span> In Review</a>
         <a href="index.php?status=approved"><span class="icon">✅</span> Approved</a>

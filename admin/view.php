@@ -50,6 +50,7 @@ function row($label, $value) {
     <div class="logo"><h5>🏠 Rentor Pro</h5><small>Admin Dashboard</small></div>
     <nav class="mt-2">
         <a href="index.php"><span>📋</span> Applications</a>
+        <a href="properties.php"><span>🏘️</span> Properties</a>
         <a href="logout.php"><span>🚪</span> Logout</a>
     </nav>
 </div>

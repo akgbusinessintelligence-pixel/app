@@ -57,6 +57,18 @@ CREATE TABLE IF NOT EXISTS `applications` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `properties` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `rent_amount` decimal(10,2) NOT NULL,
+  `bedrooms` tinyint(3) unsigned NOT NULL,
+  `bathrooms` decimal(3,1) NOT NULL,
+  `status` enum('Available','Rented') NOT NULL DEFAULT 'Available',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Multi-entry tables for history
 CREATE TABLE IF NOT EXISTS `application_addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
